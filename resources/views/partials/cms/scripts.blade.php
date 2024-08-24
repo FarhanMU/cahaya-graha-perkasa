@@ -23,3 +23,6 @@
 
 <!-- Page JS -->
 <script src="{{ asset('assets/js/app-logistics-dashboard.js') }}"></script>
+
+<!-- Sweet Alert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

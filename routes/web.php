@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Main\DashboardController;
+use App\Http\Controllers\Dashboard\HeaderController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Main\MainPageController;
 use App\Http\Controllers\Main\SmtpController;
-use App\Http\Controllers\Master\DriverController;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\Dashboard\WhyUsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,4 +33,22 @@ Route::post('/smtp-send', [SmtpController::class, 'sendEmail'])->name('smtp.send
 Route::middleware('auth')->group(function () {
     // Dashboard Controller
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/dashboard/header', HeaderController::class)->names([
+        'index' => 'header.index',
+        'create' => 'header.create',
+        'store' => 'header.store',
+        'show' => 'header.show',
+        'edit' => 'header.edit',
+        'update' => 'header.update',
+        'destroy' => 'header.destroy',
+    ]);
+    Route::resource('/dashboard/why-us', WhyUsController::class)->names([
+        'index' => 'whyUs.index',
+        'create' => 'whyUs.create',
+        'store' => 'whyUs.store',
+        'show' => 'whyUs.show',
+        'edit' => 'whyUs.edit',
+        'update' => 'whyUs.update',
+        'destroy' => 'whyUs.destroy',
+    ]);
 });
