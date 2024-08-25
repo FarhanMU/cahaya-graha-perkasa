@@ -7,7 +7,8 @@
     <div class="row">
         <div class="col-md-12">
             <img src="{{ asset('assets/img/custom/storage/blog'). '/' .  $content->image  }}" class="card-img-top"
-                alt="Steel Construction">
+                alt="Steel Construction" style="max-width: 100%; max-height: 50em;">
+
             <div class="card-body mt-3">
                 <h3 class="card-title fw-bold">{{ $content->title }}</h3>
                 <small class="text-muted">{{ $content->created_at }}</small>

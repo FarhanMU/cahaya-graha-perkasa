@@ -68,7 +68,7 @@
                         searchable: false,
                         render: function(data, type, row, meta) {
                             return `
-                                <a href="{{ route('card.edit', ':id') }}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ route('blog.edit', ':id') }}" class="btn btn-sm btn-primary">Edit</a>
                                 <button type="button" class="btn btn-sm btn-danger btn-delete" data-id=":id">Delete</button>
                             `.replace(/:id/g, data);
                         }
@@ -80,7 +80,7 @@
             // Handle Delete Button Click
             dt_ajax_table.on('click', '.btn-delete', function() {
                 var id = $(this).data('id');
-                var url = "{{ route('card.destroy', ':id') }}".replace(':id', id);
+                var url = "{{ route('blog.destroy', ':id') }}".replace(':id', id);
 
                 // SweetAlert confirmation
                 Swal.fire({

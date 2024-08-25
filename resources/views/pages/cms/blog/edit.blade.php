@@ -1,73 +1,97 @@
 @extends('components.layouts.cms.app')
 
-@section('title', 'Edit Card')
+@section('title', 'Edit Blog')
 
 @section('content')
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> <a
-                href="{{ route('card.index') }}">Card</a> / Edit Card</h4>
+                href="{{ route('blog.index') }}">Blog</a> / Edit Blog</h4>
 
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Edit Card</h5>
-                    </div>
                     <div class="card-body">
-                        <form action="{{ route('card.update', $card->id) }}" method="POST">
+                        <form action="{{ route('blog.update', $blog->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <div class="mb-3">
-                                <label class="form-label" for="name">Name</label>
-                                <input type="text" id="name" class="form-control" name="name"
-                                    value="{{ old('name', $card->name) }}" required />
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="position">Position</label>
-                                <input type="text" id="position" class="form-control" name="position"
-                                    value="{{ old('position', $card->position) }}" required />
-                            </div>
-                            <hr>
+                            <div class="row">
+                                <!-- Bahasa Inggris -->
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="card mb-4">
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <h5 class="mb-0">Language Code <strong>en</strong></h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="title_en">Title (English)</label>
+                                                <input type="text" id="title_en" class="form-control"
+                                                    name="content[en][title]" placeholder="Enter title in English"
+                                                    value="{{ old('content.en.title', $blog->contents['en']->title) }}"
+                                                    required />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="description_en">Description
+                                                    (English)</label>
+                                                <textarea id="description_en" class="form-control"
+                                                    name="content[en][description]"
+                                                    placeholder="Enter description in English"
+                                                    required>{{ old('content.en.description', $blog->contents['en']->description) }}</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="image_en">Image (English)</label>
+                                                <input type="file" id="image_en" class="form-control"
+                                                    name="content[en][image]" />
+                                                @if($blog->contents['en']->image)
+                                                <img src="{{ asset('assets/img/custom/storage/blog/' . $blog->contents['en']->image) }}"
+                                                    class="img-fluid mt-2 img-max-size"
+                                                    alt="{{ $blog->contents['en']->title }}">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <!-- Card Content Inputs -->
-                            <h5 class="mb-4">Card Contents</h5>
-
-                            @foreach ($card->contents as $content)
-                            @if ($content->title == 'WhatsApp')
-                            <div class="mb-3">
-                                <label class="form-label" for="whatsapp">WhatsApp</label>
-                                <input type="text" id="whatsapp" class="form-control" name="content[whatsapp]"
-                                    value="{{ old('content.whatsapp', $content->description) }}" />
+                                <!-- Bahasa Indonesia -->
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="card mb-4">
+                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                            <h5 class="mb-0">Language Code <strong>id</strong></h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="title_id">Title (Indonesian)</label>
+                                                <input type="text" id="title_id" class="form-control"
+                                                    name="content[id][title]" placeholder="Enter title in Indonesian"
+                                                    value="{{ old('content.id.title', $blog->contents['id']->title) }}"
+                                                    required />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="description_id">Description
+                                                    (Indonesian)</label>
+                                                <textarea id="description_id" class="form-control"
+                                                    name="content[id][description]"
+                                                    placeholder="Enter description in Indonesian"
+                                                    required>{{ old('content.id.description', $blog->contents['id']->description) }}</textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="image_id">Image (Indonesian)</label>
+                                                <input type="file" id="image_id" class="form-control"
+                                                    name="content[id][image]" />
+                                                @if($blog->contents['id']->image)
+                                                <img src="{{ asset('assets/img/custom/storage/blog/' . $blog->contents['id']->image) }}"
+                                                    class="img-fluid mt-2 img-max-size"
+                                                    alt="{{ $blog->contents['id']->title }}">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            @elseif ($content->title == 'Email')
-                            <div class="mb-3">
-                                <label class="form-label" for="email">Email</label>
-                                <input type="email" id="email" class="form-control" name="content[email]"
-                                    value="{{ old('content.email', $content->description) }}" />
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
-                            @elseif ($content->title == 'Instagram')
-                            <div class="mb-3">
-                                <label class="form-label" for="instagram">Instagram</label>
-                                <input type="text" id="instagram" class="form-control" name="content[instagram]"
-                                    value="{{ old('content.instagram', $content->description) }}" />
-                            </div>
-                            @elseif ($content->title == 'TikTok')
-                            <div class="mb-3">
-                                <label class="form-label" for="tiktok">TikTok</label>
-                                <input type="text" id="tiktok" class="form-control" name="content[tiktok]"
-                                    value="{{ old('content.tiktok', $content->description) }}" />
-                            </div>
-                            @elseif ($content->title == 'Facebook')
-                            <div class="mb-3">
-                                <label class="form-label" for="facebook">Facebook</label>
-                                <input type="text" id="facebook" class="form-control" name="content[facebook]"
-                                    value="{{ old('content.facebook', $content->description) }}" />
-                            </div>
-                            @endif
-                            @endforeach
-
-                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>

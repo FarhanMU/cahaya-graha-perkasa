@@ -5,19 +5,23 @@ use App\Http\Controllers\Controller;
 
 
 use App\Models\Main\blog;
+use App\Models\Main\blog_content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class BlogController extends Controller
 {
     public function index()
     {
-
         if (request()->ajax()) {
             $blog = Blog::with([
                 'contents' => function ($query) {
                     $query->where('language', 'id');
                 }
-            ])->get();
+            ])
+                ->orderBy('id', 'desc') // Urutkan berdasarkan id secara descending
+                ->get();
 
             // Hanya mengambil blog yang memiliki konten dalam bahasa Indonesia
             $filteredBlog = $blog->filter(function ($blog) {
@@ -40,8 +44,8 @@ class BlogController extends Controller
         }
 
         return view('pages.cms.blog.index');
-
     }
+
 
 
     public function create()
@@ -50,177 +54,165 @@ class BlogController extends Controller
 
     }
 
-    // public function store(Request $request)
-    // {
-    //     // Validasi input dari form
-    //     $validatedData = $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'position' => 'required|string|max:255',
-    //         'content.whatsapp' => 'nullable|string|max:255',
-    //         'content.email' => 'nullable|email|max:255',
-    //         'content.instagram' => 'nullable|string|max:255',
-    //         'content.tiktok' => 'nullable|string|max:255',
-    //         'content.facebook' => 'nullable|string|max:255',
-    //     ]);
+    public function store(Request $request)
+    {
+        // Validasi input
+        $validatedData = $request->validate([
+            'content.en.title' => 'required|string|max:255',
+            'content.en.description' => 'required|string',
+            'content.en.image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-    //     // Generate slug dari name
-    //     $slug = Str::slug($validatedData['name']);
+            'content.id.title' => 'required|string|max:255',
+            'content.id.description' => 'required|string',
+            'content.id.image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    //     // Pastikan slug unik
-    //     $count = card::where('slug', 'LIKE', "$slug%")->count();
-    //     if ($count > 0) {
-    //         $slug = $slug . '-' . ($count + 1);
-    //     }
+        // Buat entitas blog
+        $blog = Blog::create();
 
-    //     // Simpan data card ke dalam database
-    //     $card = card::create([
-    //         'name' => $validatedData['name'],
-    //         'position' => $validatedData['position'],
-    //         'slug' => $slug,
-    //     ]);
+        // Direktori penyimpanan gambar
+        $storagePath = 'assets/img/custom/storage/blog/';
 
-    //     // Simpan data content ke dalam tabel card_content
-    //     $contentData = [
-    //         [
-    //             'card_id' => $card->id,
-    //             'title' => 'WhatsApp',
-    //             'description' => $validatedData['content']['whatsapp'] ?? null,
-    //         ],
-    //         [
-    //             'card_id' => $card->id,
-    //             'title' => 'Email',
-    //             'description' => $validatedData['content']['email'] ?? null,
-    //         ],
-    //         [
-    //             'card_id' => $card->id,
-    //             'title' => 'Instagram',
-    //             'description' => $validatedData['content']['instagram'] ?? null,
-    //         ],
-    //         [
-    //             'card_id' => $card->id,
-    //             'title' => 'TikTok',
-    //             'description' => $validatedData['content']['tiktok'] ?? null,
-    //         ],
-    //         [
-    //             'card_id' => $card->id,
-    //             'title' => 'Facebook',
-    //             'description' => $validatedData['content']['facebook'] ?? null,
-    //         ],
-    //     ];
+        // Simpan gambar bahasa Inggris
+        $imageNameId = time() . '_en.' . $request->file('content.en.image')->extension();
+        $imagePathEn = $request->file('content.en.image')->move(public_path($storagePath), $imageNameId);
+        $imagePathEn = str_replace(public_path(), '', $imagePathEn); // Hanya simpan relative path
 
-    //     // Filter out null descriptions
-    //     $contentData = array_filter($contentData, function ($content) {
-    //         return !is_null($content['description']);
-    //     });
+        // Simpan konten dalam bahasa Inggris
+        blog_content::create([
+            'blog_id' => $blog->id,
+            'language' => 'en',
+            'title' => $validatedData['content']['en']['title'],
+            'description' => $validatedData['content']['en']['description'],
+            'slug' => Str::slug($validatedData['content']['en']['title']),
+            'visitor' => 0,
+            'image' => $imageNameId,
+        ]);
 
-    //     // Simpan data content yang sudah difilter
-    //     foreach ($contentData as $content) {
-    //         card_content::create($content);
-    //     }
+        // Simpan gambar bahasa Indonesia
+        $imageNameEn = time() . '_id.' . $request->file('content.id.image')->extension();
+        $imagePathId = $request->file('content.id.image')->move(public_path($storagePath), $imageNameEn);
+        $imagePathId = str_replace(public_path(), '', $imagePathId); // Hanya simpan relative path
 
-    //     // Redirect kembali ke halaman index card dengan pesan sukses
-    //     return redirect()->route('card.index')->with('success', 'Card created successfully.');
-    // }
+        // Simpan konten dalam bahasa Indonesia
+        blog_content::create([
+            'blog_id' => $blog->id,
+            'language' => 'id',
+            'title' => $validatedData['content']['id']['title'],
+            'description' => $validatedData['content']['id']['description'],
+            'slug' => Str::slug($validatedData['content']['id']['title']),
+            'visitor' => 0,
+            'image' => $imageNameEn,
+        ]);
+
+        return redirect()->route('blog.index')->with('success', 'Blog created successfully.');
+    }
 
 
-    // public function edit($id)
-    // {
-    //     // Ambil data card berdasarkan ID
-    //     $card = card::with([
-    //         'contents' => function ($query) {
-    //             $query->orderBy('id', 'desc');
-    //         }
-    //     ])->findOrFail($id);
-
-    //     // Tampilkan view edit dengan data card
-    //     return view('pages.cms.card.edit', compact('card'));
-    // }
 
 
-    // public function update(Request $request, $id)
-    // {
-    //     // Validasi input dari form
-    //     $validatedData = $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'position' => 'required|string|max:255',
-    //         'content.whatsapp' => 'nullable|string|max:255',
-    //         'content.email' => 'nullable|email|max:255',
-    //         'content.instagram' => 'nullable|string|max:255',
-    //         'content.tiktok' => 'nullable|string|max:255',
-    //         'content.facebook' => 'nullable|string|max:255',
-    //     ]);
 
-    //     // Temukan card berdasarkan ID
-    //     $card = card::findOrFail($id);
+    public function edit($id)
+    {
+        $blog = blog::with([
+            'contents' => function ($query) {
+                $query->whereIn('language', ['en', 'id']);
+            }
+        ])->findOrFail($id);
 
-    //     // Update data card
-    //     $card->name = $validatedData['name'];
-    //     $card->position = $validatedData['position'];
+        $blog->contents = $blog->contents->keyBy('language');
 
-    //     // Generate slug dari name jika berbeda
-    //     $slug = Str::slug($validatedData['name']);
-    //     if ($card->slug != $slug) {
-    //         $count = card::where('slug', 'LIKE', "$slug%")->count();
-    //         if ($count > 0) {
-    //             $slug = $slug . '-' . ($count + 1);
-    //         }
-    //         $card->slug = $slug;
-    //     }
-
-    //     $card->save();
-
-    //     // Update atau buat baru data content dalam tabel card_content
-    //     $contents = [
-    //         'WhatsApp' => $validatedData['content']['whatsapp'] ?? null,
-    //         'Email' => $validatedData['content']['email'] ?? null,
-    //         'Instagram' => $validatedData['content']['instagram'] ?? null,
-    //         'TikTok' => $validatedData['content']['tiktok'] ?? null,
-    //         'Facebook' => $validatedData['content']['facebook'] ?? null,
-    //     ];
-
-    //     foreach ($contents as $title => $description) {
-    //         $content = card_content::where('card_id', $card->id)
-    //             ->where('title', $title)
-    //             ->first();
-
-    //         if ($description) {
-    //             if ($content) {
-    //                 // Update existing content
-    //                 $content->description = $description;
-    //                 $content->save();
-    //             } else {
-    //                 // Create new content
-    //                 card_content::create([
-    //                     'card_id' => $card->id,
-    //                     'title' => $title,
-    //                     'description' => $description,
-    //                 ]);
-    //             }
-    //         } else {
-    //             if ($content) {
-    //                 // Delete content if description is null
-    //                 $content->delete();
-    //             }
-    //         }
-    //     }
-
-    //     // Redirect kembali ke halaman index card dengan pesan sukses
-    //     return redirect()->route('card.index')->with('success', 'Card updated successfully.');
-    // }
+        return view('pages.cms.blog.edit', compact('blog'));
+    }
 
 
-    // public function destroy($id)
-    // {
-    //     $card = card::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        // Validasi input
+        $validatedData = $request->validate([
+            'content.en.title' => 'required|string|max:255',
+            'content.en.description' => 'required|string',
+            'content.en.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-    //     // Hapus semua content yang terkait dengan card
-    //     $card->contents()->delete();
+            'content.id.title' => 'required|string|max:255',
+            'content.id.description' => 'required|string',
+            'content.id.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    //     // Hapus card
-    //     $card->delete();
+        // Temukan blog dan update kontennya
+        $blog = blog::findOrFail($id);
 
-    //     return response()->json([
-    //         'message' => 'Card and its contents deleted successfully.'
-    //     ]);
-    // }
+        // Direktori penyimpanan gambar
+        $storagePath = 'assets/img/custom/storage/blog/';
+
+        // Update konten bahasa Inggris
+        $contentEn = $blog->contents()->where('language', 'en')->first();
+        $contentEn->update([
+            'title' => $validatedData['content']['en']['title'],
+            'description' => $validatedData['content']['en']['description'],
+            'slug' => Str::slug($validatedData['content']['en']['title']),
+        ]);
+
+        if ($request->hasFile('content.en.image')) {
+            // Hapus gambar lama jika ada
+            if ($contentEn->image && file_exists(public_path($storagePath . $contentEn->image))) {
+                unlink(public_path($storagePath . $contentEn->image));
+            }
+
+            // Simpan gambar baru
+            $imageNameEn = time() . '_en.' . $request->file('content.en.image')->extension();
+            $imagePathEn = $request->file('content.en.image')->move(public_path($storagePath), $imageNameEn);
+            $contentEn->update(['image' => $imageNameEn]);
+        }
+
+        // Update konten bahasa Indonesia
+        $contentId = $blog->contents()->where('language', 'id')->first();
+        $contentId->update([
+            'title' => $validatedData['content']['id']['title'],
+            'description' => $validatedData['content']['id']['description'],
+            'slug' => Str::slug($validatedData['content']['id']['title']),
+        ]);
+
+        if ($request->hasFile('content.id.image')) {
+            // Hapus gambar lama jika ada
+            if ($contentId->image && file_exists(public_path($storagePath . $contentId->image))) {
+                unlink(public_path($storagePath . $contentId->image));
+            }
+
+            // Simpan gambar baru
+            $imageNameId = time() . '_id.' . $request->file('content.id.image')->extension();
+            $imagePathId = $request->file('content.id.image')->move(public_path($storagePath), $imageNameId);
+            $contentId->update(['image' => $imageNameId]);
+        }
+
+        return redirect()->route('blog.index')->with('success', 'Blog updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        // Temukan blog berdasarkan ID
+        $blog = blog::findOrFail($id);
+
+        // Direktori penyimpanan gambar
+        $storagePath = 'assets/img/custom/storage/blog/';
+
+        // Hapus semua konten yang terkait dengan blog
+        foreach ($blog->contents as $content) {
+            // Hapus gambar jika ada
+            if ($content->image && file_exists(public_path($storagePath . $content->image))) {
+                unlink(public_path($storagePath . $content->image));
+            }
+
+            // Hapus konten
+            $content->delete();
+        }
+
+        // Hapus blog
+        $blog->delete();
+
+        return response()->json([
+            'message' => 'Blog and its contents deleted successfully.'
+        ]);
+    }
+
 }
