@@ -29,6 +29,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Position</th>
+                            <th>Link</th>
                             <th>Action</th> <!-- Kolom untuk aksi -->
                         </tr>
                     </thead>
@@ -61,7 +62,14 @@
                 columns: [
                     { data: 'name', name: 'name' },
                     { data: 'position', name: 'position' },
-                    { 
+                    {
+                            data: 'slug',
+                            name: 'slug',
+                            render: function (data, type, row, meta) {
+                                return `<a href="/id-card/${data}" target="_blank" >open</a>`;
+                            }
+                        },                    
+                        { 
                         data: 'id', 
                         name: 'action', 
                         orderable: false, 
