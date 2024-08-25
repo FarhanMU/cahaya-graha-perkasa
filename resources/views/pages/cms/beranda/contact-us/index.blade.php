@@ -11,13 +11,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4"><span class="text-muted fw-light">Beranda/</span> Contact Us</h4>
 
-        <!-- Menampilkan pesan sukses -->
-        @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
+
 
         <div class="row">
             @foreach($contact_us as $index => $contactUs)
@@ -81,5 +75,15 @@
             alert.close();
         }
     }, 3000);
+</script>
+
+<script>
+    @if(session('success'))
+        toastr.success("{{ session('success') }}", 'Success', { 
+            closeButton: true, 
+            progressBar: true, 
+            positionClass: 'toast-bottom-right' 
+        });
+    @endif
 </script>
 @endpush

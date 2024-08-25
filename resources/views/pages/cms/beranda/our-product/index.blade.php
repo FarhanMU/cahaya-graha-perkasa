@@ -11,14 +11,6 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4"><span class="text-muted fw-light">Beranda/</span> Our Product</h4>
 
-        <!-- Menampilkan pesan sukses -->
-        @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
         <div class="row">
             @foreach($our_product as $index => $ourProduct)
             <!-- Wrap number and its data inside another card -->
@@ -129,5 +121,15 @@
             })
         });
     });
+</script>
+
+<script>
+    @if(session('success'))
+        toastr.success("{{ session('success') }}", 'Success', { 
+            closeButton: true, 
+            progressBar: true, 
+            positionClass: 'toast-bottom-right' 
+        });
+    @endif
 </script>
 @endpush

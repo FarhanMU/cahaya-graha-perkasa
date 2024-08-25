@@ -8,14 +8,6 @@
         <h4 class="py-3 mb-4"><span class="text-muted fw-light">Beranda/</span> <a
                 href="{{ route('ourProduct.index') }}">Our Product</a> /Create</h4>
 
-        <!-- Menampilkan pesan sukses -->
-        @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
         <!-- Form untuk menambahkan Our Product content dalam dua bahasa -->
         <div class="row">
             <!-- Bahasa Inggris -->

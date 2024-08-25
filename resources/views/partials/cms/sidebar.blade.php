@@ -79,8 +79,8 @@
                 <div data-i18n="Card">Card</div>
             </a>
         </li>
-        <li class="menu-item  {{ request()->routeIs('email.*') ? 'active' : '' }} ">
-            <a href="/dashboard/email" class="menu-link">
+        <li class="menu-item  {{ request()->routeIs('sendEmail.*') ? 'active' : '' }} ">
+            <a href="/dashboard/send-email" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-mail"></i>
                 <div data-i18n="Email">Email</div>
             </a>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CardController;
 use App\Http\Controllers\Dashboard\ContactUsController;
 use App\Http\Controllers\Dashboard\HeaderController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Main\SmtpController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\Dashboard\WhyUsController;
 use App\Http\Controllers\Dashboard\OurProductController;
+use App\Http\Controllers\Dashboard\SendEmailController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -84,4 +86,17 @@ Route::middleware('auth')->group(function () {
         'update' => 'socialMedia.update',
         'destroy' => 'socialMedia.destroy',
     ]);
+
+    Route::resource('/dashboard/card', CardController::class)->names([
+        'index' => 'card.index',
+        'create' => 'card.create',
+        'store' => 'card.store',
+        'show' => 'card.show',
+        'edit' => 'card.edit',
+        'update' => 'card.update',
+        'destroy' => 'card.destroy',
+    ]);
+
+    Route::get('/dashboard/send-email', [SendEmailController::class, 'index'])->name('sendEmail.index');
+
 });

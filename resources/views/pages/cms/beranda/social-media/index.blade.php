@@ -11,14 +11,6 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4"><span class="text-muted fw-light">Beranda/</span> Social Media</h4>
 
-        <!-- Menampilkan pesan sukses -->
-        @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
         @foreach($social_media as $key => $content)
         <div class="row">
             <div class="col-xl">
@@ -30,7 +22,7 @@
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-phone">Title</label>
                                 <input type="text" id="basic-default-phone" class="form-control" name="title"
-                                    value="{{ old('title', $content->title) }}" required />
+                                    value="{{ old('title', $content->title) }}" required readonly />
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-message">Link</label>
@@ -60,5 +52,15 @@
             alert.close();
         }
     }, 3000);
+</script>
+
+<script>
+    @if(session('success'))
+        toastr.success("{{ session('success') }}", 'Success', { 
+            closeButton: true, 
+            progressBar: true, 
+            positionClass: 'toast-bottom-right' 
+        });
+    @endif
 </script>
 @endpush

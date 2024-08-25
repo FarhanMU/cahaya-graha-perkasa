@@ -11,14 +11,6 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4"><span class="text-muted fw-light">Beranda/</span> Header</h4>
 
-        <!-- Menampilkan pesan sukses -->
-        @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
         @foreach($header as $key => $headers)
         @foreach($headers->contents as $content)
         <div class="row">
@@ -66,5 +58,15 @@
             alert.close();
         }
     }, 3000);
+</script>
+
+<script>
+    @if(session('success'))
+        toastr.success("{{ session('success') }}", 'Success', { 
+            closeButton: true, 
+            progressBar: true, 
+            positionClass: 'toast-bottom-right' 
+        });
+    @endif
 </script>
 @endpush
