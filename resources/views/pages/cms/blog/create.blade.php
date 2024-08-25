@@ -86,3 +86,22 @@
     </div>
 </div>
 @endsection
+
+
+@push('scripts')
+
+
+
+
+<script>
+    CKEDITOR.replace('description_en', {
+        removePlugins: 'notification',
+    });
+    CKEDITOR.replace('description_id', {
+        removePlugins: 'notification',
+    });
+</script>
+
+
+
+@endpush

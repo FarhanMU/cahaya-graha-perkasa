@@ -55,7 +55,9 @@ $metaTwitterImage = $metaOgImage;
 
                             <div class="card-body">
                                 <h5 class="card-title fw-bold fs-3">{{ $content->title }}</h5>
-                                <p class="card-text">{{ $content->description }}</p>
+                                <p class="card-text">
+                                    {{ Str::limit(strip_tags($content->description), 300, '...') }}
+                                </p>
                             </div>
                         </div>
                     </a>

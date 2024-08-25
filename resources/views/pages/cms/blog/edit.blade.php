@@ -100,3 +100,16 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+
+
+
+
+<script>
+    CKEDITOR.replace('description_en');
+    CKEDITOR.replace('description_id');
+</script>
+
+
+@endpush
