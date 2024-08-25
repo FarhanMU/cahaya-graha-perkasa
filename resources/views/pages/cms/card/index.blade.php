@@ -82,30 +82,41 @@
                 var id = $(this).data('id');
                 var url = "{{ route('card.destroy', ':id') }}".replace(':id', id);
 
-                if (confirm('Are you sure you want to delete this card?')) {
-                    $.ajax({
-                        url: url,
-                        type: 'DELETE',
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            table.ajax.reload(); // Reload DataTable after delete
-                            toastr.success(response.message, 'Success', { 
-                                closeButton: true, 
-                                progressBar: true, 
-                                positionClass: 'toast-bottom-right' 
-                            });
-                        },
-                        error: function(xhr) {
-                            toastr.error('Failed to delete the card.', 'Error', { 
-                                closeButton: true, 
-                                progressBar: true, 
-                                positionClass: 'toast-bottom-right' 
-                            });
-                        }
-                    });
-                }
+                // SweetAlert confirmation
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: url,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                table.ajax.reload(); // Reload DataTable after delete
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your card has been deleted.',
+                                    'success'
+                                );
+                            },
+                            error: function(xhr) {
+                                Swal.fire(
+                                    'Failed!',
+                                    'Failed to delete the card.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
             });
 
         }
