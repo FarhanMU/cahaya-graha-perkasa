@@ -20,10 +20,9 @@ class BlogController extends Controller
                     $query->where('language', 'id');
                 }
             ])
-                ->orderBy('id', 'desc') // Urutkan berdasarkan id secara descending
                 ->get();
 
-            // Hanya mengambil blog yang memiliki konten dalam bahasa Indonesia
+            // Filter blog yang memiliki konten dalam bahasa Indonesia
             $filteredBlog = $blog->filter(function ($blog) {
                 return $blog->contents->isNotEmpty();
             });
@@ -34,7 +33,7 @@ class BlogController extends Controller
                     return $row->contents->first()->title ?? '';
                 })
                 ->addColumn('description', function ($row) {
-                    return $row->contents->first()->description ?? '';
+                    return Str::limit(strip_tags($row->contents->first()->description ?? ''), 300, '...');
                 })
                 ->addColumn('visitor', function ($row) {
                     return $row->contents->first()->visitor ?? '';
@@ -42,6 +41,7 @@ class BlogController extends Controller
                 ->rawColumns(['title', 'description', 'visitor'])
                 ->make(true);
         }
+
 
         return view('pages.cms.blog.index');
     }

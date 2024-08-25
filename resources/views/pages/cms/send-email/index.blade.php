@@ -22,6 +22,7 @@
                 <table class="datatables-ajax table">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Name</th>
                             <th>Contact</th>
                             <th>Description</th>
@@ -54,6 +55,15 @@
                 serverSide: true,
                 ajax: '{{ route('sendEmail.index') }}',
                 columns: [
+                    { 
+                        data: null, 
+                        name: 'index', 
+                        orderable: false, // Kolom ini memang tidak diurutkan karena hanya menampilkan nomor urut
+                        searchable: false,
+                        render: function (data, type, full, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        } 
+                    },
                     { data: 'name', name: 'name' },
                     { data: 'contact', name: 'contact' },
                     { data: 'description', name: 'description' },

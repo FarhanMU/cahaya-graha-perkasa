@@ -14,7 +14,7 @@ class ContactUsController extends Controller
             'contents' => function ($query) {
                 $query->orderBy('id', 'desc');
             }
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
         return view('pages.cms.beranda.contact-us.index', compact('contact_us'));
     }
 

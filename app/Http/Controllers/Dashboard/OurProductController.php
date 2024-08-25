@@ -16,7 +16,7 @@ class OurProductController extends Controller
             'contents' => function ($query) {
                 $query->orderBy('id', 'desc');
             }
-        ])->orderBy('created_at', 'desc')->get();
+        ])->orderBy('id', 'desc')->get();
         return view('pages.cms.beranda.our-product.index', compact('our_product'));
 
     }

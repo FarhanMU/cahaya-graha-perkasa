@@ -27,27 +27,26 @@ class MainPageController extends Controller
             'contents' => function ($query) use ($language) {
                 $query->where('language', $language);
             }
-        ])->get();
-
+        ])->orderBy('id', 'desc')->get();
 
         $why_us = why_us::with([
             'contents' => function ($query) use ($language) {
                 $query->where('language', $language);
             }
-        ])->get();
-
+        ])->orderBy('id', 'desc')->get();
 
         $our_product = our_product::with([
             'contents' => function ($query) use ($language) {
                 $query->where('language', $language);
             }
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
 
         $contact_us = contact_us::with([
             'contents' => function ($query) use ($language) {
                 $query->where('language', $language);
             }
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
+
 
         $social_media = social_media::get();
 
@@ -65,13 +64,14 @@ class MainPageController extends Controller
             'contents' => function ($query) use ($language) {
                 $query->where('language', $language);
             }
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
 
-        $blog = blog::with([
+        $blog = Blog::with([
             'contents' => function ($query) use ($language) {
                 $query->where('language', $language);
             }
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
+
 
         // return $blog;
 

@@ -14,7 +14,7 @@ class WhyUsController extends Controller
             'contents' => function ($query) {
                 $query->orderBy('id', 'desc');
             }
-        ])->orderBy('created_at', 'desc')->get();
+        ])->orderBy('id', 'desc')->get();
         return view('pages.cms.beranda.why-us.index', compact('why_us'));
 
     }

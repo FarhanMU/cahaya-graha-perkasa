@@ -27,9 +27,10 @@
                 <table class="datatables-ajax table">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Title</th>
                             {{-- <th>Visitor</th> --}}
-                            <th>Action</th> <!-- Kolom untuk aksi -->
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -59,6 +60,15 @@
                 serverSide: true,
                 ajax: '{{ route('blog.index') }}',
                 columns: [
+                    { 
+                        data: null, 
+                        name: 'index', 
+                        orderable: false, // Kolom ini memang tidak diurutkan karena hanya menampilkan nomor urut
+                        searchable: false,
+                        render: function (data, type, full, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        } 
+                    },
                     { data: 'title', title: 'name' },
                     // { data: 'visitor', name: 'visitor' },
                     { 

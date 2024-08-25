@@ -13,9 +13,10 @@ class HeaderController extends Controller
     {
         $header = Header::with([
             'contents' => function ($query) {
-                $query->orderBy('id', 'desc');
+                $query->orderBy('id', 'desc'); // Mengurutkan konten berdasarkan ID secara menurun
             }
-        ])->get();
+        ])->orderBy('id', 'desc')->get(); // Mengurutkan Header berdasarkan ID secara menurun
+
         return view('pages.cms.beranda.header.index', compact('header'));
     }
 
