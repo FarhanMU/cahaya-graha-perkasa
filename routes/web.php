@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\BlogController;
 use App\Http\Controllers\Dashboard\CardController;
 use App\Http\Controllers\Dashboard\ContactUsController;
 use App\Http\Controllers\Dashboard\HeaderController;
@@ -87,6 +88,16 @@ Route::middleware('auth')->group(function () {
         'destroy' => 'socialMedia.destroy',
     ]);
 
+    Route::resource('/dashboard/blog', BlogController::class)->names([
+        'index' => 'blog.index',
+        'create' => 'blog.create',
+        'store' => 'blog.store',
+        'show' => 'blog.show',
+        'edit' => 'blog.edit',
+        'update' => 'blog.update',
+        'destroy' => 'blog.destroy',
+    ]);
+
     Route::resource('/dashboard/card', CardController::class)->names([
         'index' => 'card.index',
         'create' => 'card.create',
@@ -98,5 +109,6 @@ Route::middleware('auth')->group(function () {
     ]);
 
     Route::get('/dashboard/send-email', [SendEmailController::class, 'index'])->name('sendEmail.index');
+
 
 });
