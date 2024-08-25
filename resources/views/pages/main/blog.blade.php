@@ -34,7 +34,7 @@
                         <div class="card h-100">
                             <img src="{{ asset('assets/img/custom/storage/blog/' . $content->image) }}"
                                 class="card-img-top" alt="{{ $content->title }}"
-                                style="max-width: 100%; max-height: 250px;">
+                                style="max-width: 100%; max-height: 250px; object-fit: cover;">
 
                             <div class="card-body">
                                 <h5 class="card-title fw-bold fs-3">{{ $content->title }}</h5>

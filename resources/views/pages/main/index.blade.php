@@ -65,7 +65,8 @@
                                 <div class="card h-100">
                                     <div class="card-body text-body d-flex flex-column justify-content-between h-100">
                                         <img src="{{ asset('assets/img/custom/storage/product') . '/'. $content->image  }}"
-                                            class="card-img-top" alt="Besi Aluminium">
+                                            class="card-img-top" alt="Besi Aluminium"
+                                            style="max-width: 100%; max-height: 250px; object-fit: cover;">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bold fs-3">{{ $content->title }}</h5>
                                             <p class="card-text">{{ $content->description }}</p>

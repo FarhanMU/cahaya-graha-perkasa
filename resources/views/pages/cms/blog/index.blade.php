@@ -28,7 +28,7 @@
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Visitor</th>
+                            {{-- <th>Visitor</th> --}}
                             <th>Action</th> <!-- Kolom untuk aksi -->
                         </tr>
                     </thead>
@@ -60,7 +60,7 @@
                 ajax: '{{ route('blog.index') }}',
                 columns: [
                     { data: 'title', title: 'name' },
-                    { data: 'visitor', name: 'visitor' },
+                    // { data: 'visitor', name: 'visitor' },
                     { 
                         data: 'id', 
                         name: 'action', 
