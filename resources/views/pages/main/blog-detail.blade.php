@@ -2,6 +2,20 @@
 
 @section('content')
 
+@section('title', $content->title . ' | Cahaya Graha Perkasa')
+
+@php
+$metaDescription = Str::limit($content->description, 160); // Mengambil 160 karakter pertama dari deskripsi
+$metaKeywords = 'blog, ' . $content->title . ', articles, insights';
+$metaAuthor = 'PT Cahaya Graha Perkas';
+$metaOgTitle = $content->title . ' | PT Cahaya Graha Perkas';
+$metaOgDescription = $metaDescription;
+$metaOgImage = asset('assets/img/custom/storage/blog/' . $content->image); // Gambar untuk social media sharing
+$metaTwitterTitle = $metaOgTitle;
+$metaTwitterDescription = $metaDescription;
+$metaTwitterImage = $metaOgImage;
+@endphp
+
 <!-- Blog Detail Section -->
 <div class="container" style="margin-top: 8em;">
     <div class="row">

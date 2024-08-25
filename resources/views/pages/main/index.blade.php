@@ -2,6 +2,22 @@
 
 @section('content')
 
+
+@section('title', $metaOgTitle ?? 'Cahaya Graha Perkasa')
+
+@php
+$metaDescription = 'Discover why we are the best choice. Explore our unique offerings and products tailored to meet your
+needs.';
+$metaKeywords = 'why us, our products, contact us, company name, services, products';
+$metaAuthor = 'PT Cahaya Graha Perkasa';
+$metaOgTitle = 'Why Choose Us | PT Cahaya Graha Perkasa';
+$metaOgDescription = $metaDescription;
+$metaOgImage = asset('assets/img/custom/jumbotron-1.webp'); // Image for social media sharing
+$metaTwitterTitle = $metaOgTitle;
+$metaTwitterDescription = $metaDescription;
+$metaTwitterImage = $metaOgImage;
+@endphp
+
 <style>
     .form-control,
     .form-control:hover,

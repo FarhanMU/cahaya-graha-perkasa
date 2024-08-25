@@ -1,6 +1,23 @@
 @extends('components.layouts.main.app')
 
 @section('content')
+
+
+@section('title', 'Blog | Cahaya Graha Perkasa')
+
+@php
+$metaDescription = 'Discover insightful articles on our blog. Stay updated with the latest trends, tips, and more.';
+$metaKeywords = 'blog, articles, insights, trends, tips, PT Cahaya Graha Perkasa';
+$metaAuthor = 'PT Cahaya Graha Perkasa';
+$metaOgTitle = 'Blog | PT Cahaya Graha Perkasa';
+$metaOgDescription = $metaDescription;
+$metaOgImage = asset('assets/img/custom/jumbotron-1.webp'); // Gambar untuk social media sharing
+$metaTwitterTitle = $metaOgTitle;
+$metaTwitterDescription = $metaDescription;
+$metaTwitterImage = $metaOgImage;
+@endphp
+
+
 <!-- Jumbotron Section -->
 <div class="jumbotron jumbotron-custom text-white" data-aos="fade-up">
     <div class="container-fluid custom-container">
