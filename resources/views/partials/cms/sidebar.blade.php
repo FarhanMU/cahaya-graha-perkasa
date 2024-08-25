@@ -45,17 +45,17 @@
                     </a>
                 </li>
                 <li class="menu-item  {{ request()->routeIs('ourProduct.*') ? 'active' : '' }} ">
-                    <a href="/dashboard/ourProduct/" class="menu-link">
+                    <a href="/dashboard/our-product/" class="menu-link">
                         <div data-i18n="Our Product">Our Product</div>
                     </a>
                 </li>
                 <li class="menu-item  {{ request()->routeIs('contactUs.*') ? 'active' : '' }} ">
-                    <a href="/contactUs/" class="menu-link">
+                    <a href="/dashboard/contact-us/" class="menu-link">
                         <div data-i18n="Contact Us">Contact Us</div>
                     </a>
                 </li>
                 <li class="menu-item  {{ request()->routeIs('socialMedia.*') ? 'active' : '' }} ">
-                    <a href="/dashboard/socialMedia" class="menu-link">
+                    <a href="/dashboard/social-media" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-archive"></i>
                         <div data-i18n="Social Media">Social Media</div>
                     </a>

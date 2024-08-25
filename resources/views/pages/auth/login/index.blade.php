@@ -3,6 +3,8 @@
 @section('title', 'Data Master - Pengemudi')
 
 @section('content')
+
+
 <!-- Content wrapper -->
 <div class="authentication-wrapper authentication-cover authentication-bg">
     <div class="authentication-inner row">
@@ -73,6 +75,32 @@
 @endsection
 
 @push('scripts')
+
+<script>
+    // Function to modify the autofill styles
+    function removeAutofillStyles() {
+        for (let i = 0; i < document.styleSheets.length; i++) {
+            const styleSheet = document.styleSheets[i];
+            try {
+                const rules = styleSheet.cssRules || styleSheet.rules;
+                for (let j = 0; j < rules.length; j++) {
+                    const rule = rules[j];
+                    if (rule.selectorText && rule.selectorText.includes('-webkit-autofill')) {
+                        rule.style.backgroundClip = '';
+                        rule.style.webkitBackgroundClip = '';
+                    }
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
+
+    // Call the function to remove the styles
+    removeAutofillStyles();
+
+
+</script>
 
 
 @endpush

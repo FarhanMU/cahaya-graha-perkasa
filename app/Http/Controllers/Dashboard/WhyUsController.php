@@ -14,7 +14,7 @@ class WhyUsController extends Controller
             'contents' => function ($query) {
                 $query->orderBy('id', 'desc');
             }
-        ])->get();
+        ])->orderBy('created_at', 'desc')->get();
         return view('pages.cms.beranda.why-us.index', compact('why_us'));
 
     }
@@ -90,7 +90,7 @@ class WhyUsController extends Controller
             'description' => $validatedData['description'],
         ]);
 
-        return redirect()->route('whyUs.index')->with('success', 'Header content updated successfully.');
+        return redirect()->route('whyUs.index')->with('success', 'Why Us content updated successfully.');
     }
 
     public function destroy($id)

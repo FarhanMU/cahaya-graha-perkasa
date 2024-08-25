@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ContactUsController;
 use App\Http\Controllers\Dashboard\HeaderController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\SocialMediaController;
 use App\Http\Controllers\Main\MainPageController;
 use App\Http\Controllers\Main\SmtpController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\Dashboard\WhyUsController;
+use App\Http\Controllers\Dashboard\OurProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -50,5 +53,35 @@ Route::middleware('auth')->group(function () {
         'edit' => 'whyUs.edit',
         'update' => 'whyUs.update',
         'destroy' => 'whyUs.destroy',
+    ]);
+
+    Route::resource('/dashboard/our-product', OurProductController::class)->names([
+        'index' => 'ourProduct.index',
+        'create' => 'ourProduct.create',
+        'store' => 'ourProduct.store',
+        'show' => 'ourProduct.show',
+        'edit' => 'ourProduct.edit',
+        'update' => 'ourProduct.update',
+        'destroy' => 'ourProduct.destroy',
+    ]);
+
+    Route::resource('/dashboard/contact-us', ContactUsController::class)->names([
+        'index' => 'contactUs.index',
+        'create' => 'contactUs.create',
+        'store' => 'contactUs.store',
+        'show' => 'contactUs.show',
+        'edit' => 'contactUs.edit',
+        'update' => 'contactUs.update',
+        'destroy' => 'contactUs.destroy',
+    ]);
+
+    Route::resource('/dashboard/social-media', SocialMediaController::class)->names([
+        'index' => 'socialMedia.index',
+        'create' => 'socialMedia.create',
+        'store' => 'socialMedia.store',
+        'show' => 'socialMedia.show',
+        'edit' => 'socialMedia.edit',
+        'update' => 'socialMedia.update',
+        'destroy' => 'socialMedia.destroy',
     ]);
 });

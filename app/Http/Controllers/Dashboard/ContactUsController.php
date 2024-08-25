@@ -1,65 +1,40 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\contact_us;
+namespace App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Controller;
+use App\Models\Main\contact_us;
+use App\Models\Main\contact_us_content;
 use Illuminate\Http\Request;
 
 class ContactUsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $contact_us = contact_us::with([
+            'contents' => function ($query) {
+                $query->orderBy('id', 'desc');
+            }
+        ])->get();
+        return view('pages.cms.beranda.contact-us.index', compact('contact_us'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(Request $request, $id)
     {
-        //
-    }
+        // Validasi input
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Cari header content berdasarkan ID
+        $contactUsContent = contact_us_content::findOrFail($id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(contact_us $contact_us)
-    {
-        //
-    }
+        // Update data
+        $contactUsContent->update([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(contact_us $contact_us)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, contact_us $contact_us)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(contact_us $contact_us)
-    {
-        //
+        return redirect()->route('contactUs.index')->with('success', 'Contact Us content updated successfully.');
     }
 }

@@ -1,65 +1,35 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\social_media;
+namespace App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Controller;
+use App\Models\Main\social_media;
 use Illuminate\Http\Request;
 
 class SocialMediaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $social_media = social_media::orderBy('id', 'desc')->get();
+        return view('pages.cms.beranda.social-media.index', compact('social_media'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(Request $request, $id)
     {
-        //
-    }
+        // Validasi input
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'link' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Cari header content berdasarkan ID
+        $socialMedia = social_media::findOrFail($id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(social_media $social_media)
-    {
-        //
-    }
+        // Update data
+        $socialMedia->update([
+            'title' => $validatedData['title'],
+            'link' => $validatedData['link'],
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(social_media $social_media)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, social_media $social_media)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(social_media $social_media)
-    {
-        //
+        return redirect()->route('socialMedia.index')->with('success', 'Social Media content updated successfully.');
     }
 }
