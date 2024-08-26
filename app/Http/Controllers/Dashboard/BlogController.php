@@ -8,6 +8,8 @@ use App\Models\Main\blog;
 use App\Models\Main\blog_content;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 
 class BlogController extends Controller
@@ -73,10 +75,22 @@ class BlogController extends Controller
         // Direktori penyimpanan gambar
         $storagePath = 'assets/img/custom/storage/blog/';
 
-        // Simpan gambar bahasa Inggris
-        $imageNameId = time() . '_en.' . $request->file('content.en.image')->extension();
-        $imagePathEn = $request->file('content.en.image')->move(public_path($storagePath), $imageNameId);
-        $imagePathEn = str_replace(public_path(), '', $imagePathEn); // Hanya simpan relative path
+        // Inisialisasi ImageManager dengan GD driver
+        $manager = new ImageManager(new Driver());
+
+        // Simpan gambar bahasa Inggris dan resize
+        $imageFileEn = $request->file('content.en.image');
+        $imageNameEn = time() . '_en.' . $imageFileEn->extension();
+        $imagePathEn = public_path($storagePath . $imageNameEn);
+
+        // Resize gambar bahasa Inggris
+        $image = $manager->read($imageFileEn);
+        $newWidth = intval($image->width() * 0.5);
+        $newHeight = intval($image->height() * 0.5);
+        $image->resize($newWidth, $newHeight, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->save($imagePathEn);
 
         // Simpan konten dalam bahasa Inggris
         blog_content::create([
@@ -86,13 +100,22 @@ class BlogController extends Controller
             'description' => $validatedData['content']['en']['description'],
             'slug' => Str::slug($validatedData['content']['en']['title']),
             'visitor' => 0,
-            'image' => $imageNameId,
+            'image' => $imageNameEn,
         ]);
 
-        // Simpan gambar bahasa Indonesia
-        $imageNameEn = time() . '_id.' . $request->file('content.id.image')->extension();
-        $imagePathId = $request->file('content.id.image')->move(public_path($storagePath), $imageNameEn);
-        $imagePathId = str_replace(public_path(), '', $imagePathId); // Hanya simpan relative path
+        // Simpan gambar bahasa Indonesia dan resize
+        $imageFileId = $request->file('content.id.image');
+        $imageNameId = time() . '_id.' . $imageFileId->extension();
+        $imagePathId = public_path($storagePath . $imageNameId);
+
+        // Resize gambar bahasa Indonesia
+        $image = $manager->read($imageFileId);
+        $newWidth = intval($image->width() * 0.5);
+        $newHeight = intval($image->height() * 0.5);
+        $image->resize($newWidth, $newHeight, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->save($imagePathId);
 
         // Simpan konten dalam bahasa Indonesia
         blog_content::create([
@@ -102,7 +125,7 @@ class BlogController extends Controller
             'description' => $validatedData['content']['id']['description'],
             'slug' => Str::slug($validatedData['content']['id']['title']),
             'visitor' => 0,
-            'image' => $imageNameEn,
+            'image' => $imageNameId,
         ]);
 
         return redirect()->route('blog.index')->with('success', 'Blog created successfully.');
@@ -145,6 +168,9 @@ class BlogController extends Controller
         // Direktori penyimpanan gambar
         $storagePath = 'assets/img/custom/storage/blog/';
 
+        // Inisialisasi ImageManager dengan GD driver
+        $manager = new ImageManager(new Driver());
+
         // Update konten bahasa Inggris
         $contentEn = $blog->contents()->where('language', 'en')->first();
         $contentEn->update([
@@ -159,9 +185,20 @@ class BlogController extends Controller
                 unlink(public_path($storagePath . $contentEn->image));
             }
 
-            // Simpan gambar baru
-            $imageNameEn = time() . '_en.' . $request->file('content.en.image')->extension();
-            $imagePathEn = $request->file('content.en.image')->move(public_path($storagePath), $imageNameEn);
+            // Simpan gambar baru dan lakukan resize
+            $imageFileEn = $request->file('content.en.image');
+            $imageNameEn = time() . '_en.' . $imageFileEn->extension();
+            $imagePathEn = public_path($storagePath . $imageNameEn);
+
+            // Resize gambar bahasa Inggris
+            $image = $manager->read($imageFileEn);
+            $newWidth = intval($image->width() * 0.5);
+            $newHeight = intval($image->height() * 0.5);
+            $image->resize($newWidth, $newHeight, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save($imagePathEn);
+
             $contentEn->update(['image' => $imageNameEn]);
         }
 
@@ -179,9 +216,20 @@ class BlogController extends Controller
                 unlink(public_path($storagePath . $contentId->image));
             }
 
-            // Simpan gambar baru
-            $imageNameId = time() . '_id.' . $request->file('content.id.image')->extension();
-            $imagePathId = $request->file('content.id.image')->move(public_path($storagePath), $imageNameId);
+            // Simpan gambar baru dan lakukan resize
+            $imageFileId = $request->file('content.id.image');
+            $imageNameId = time() . '_id.' . $imageFileId->extension();
+            $imagePathId = public_path($storagePath . $imageNameId);
+
+            // Resize gambar bahasa Indonesia
+            $image = $manager->read($imageFileId);
+            $newWidth = intval($image->width() * 0.5);
+            $newHeight = intval($image->height() * 0.5);
+            $image->resize($newWidth, $newHeight, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })->save($imagePathId);
+
             $contentId->update(['image' => $imageNameId]);
         }
 

@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Main\our_product;
 use App\Models\Main\our_product_content;
 use Illuminate\Http\Request;
-
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 class OurProductController extends Controller
 {
     public function index()
@@ -55,42 +56,82 @@ class OurProductController extends Controller
         // Simpan data baru ke dalam tabel our_product untuk mendapatkan our_product_id
         $ourProduct = our_product::create();
 
-        // Handle Image Upload for English
+        // Inisialisasi ImageManager dengan driver yang diinginkan
+        $manager = new ImageManager(new Driver());
+
+        // Handle Image Upload and Resize for English
         if ($request->hasFile('image_en')) {
-            $imageNameEn = time() . '_en.' . $request->image_en->extension();
-            $request->image_en->move(public_path('assets/img/custom/storage/product'), $imageNameEn);
+            $imageFile = $request->file('image_en');
+            $imageNameEn = time() . '_en.' . $imageFile->getClientOriginalExtension();
+            $imagePath = public_path('assets/img/custom/storage/product/' . $imageNameEn);
+
+            // Baca gambar dan lakukan resize
+            $image = $manager->read($imageFile);
+
+            // Dapatkan ukuran asli gambar
+            $originalWidth = $image->width();
+            $originalHeight = $image->height();
+
+            // Hitung ukuran baru (60% dari ukuran asli)
+            $newWidth = intval($originalWidth * 0.5);
+            $newHeight = intval($originalHeight * 0.5);
+
+            // Resize gambar ke ukuran baru
+            $image->resize($newWidth, $newHeight, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })
+                ->save($imagePath);
+
             $validatedDataEn['image'] = $imageNameEn;
         }
 
-        // Handle Image Upload for Indonesian
+        // Handle Image Upload and Resize for Indonesian
         if ($request->hasFile('image_id')) {
-            $imageNameId = time() . '_id.' . $request->image_id->extension();
-            $request->image_id->move(public_path('assets/img/custom/storage/product'), $imageNameId);
+            $imageFile = $request->file('image_id');
+            $imageNameId = time() . '_id.' . $imageFile->getClientOriginalExtension();
+            $imagePath = public_path('assets/img/custom/storage/product/' . $imageNameId);
+
+            // Baca gambar dan lakukan resize
+            $image = $manager->read($imageFile);
+            // Dapatkan ukuran asli gambar
+            $originalWidth = $image->width();
+            $originalHeight = $image->height();
+
+            // Hitung ukuran baru (60% dari ukuran asli)
+            $newWidth = intval($originalWidth * 0.5);
+            $newHeight = intval($originalHeight * 0.5);
+
+            // Resize gambar ke ukuran baru
+            $image->resize($newWidth, $newHeight, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })
+                ->save($imagePath);
+
             $validatedDataId['image'] = $imageNameId;
         }
 
         // Simpan data baru ke dalam tabel our_product_content untuk bahasa Inggris
         our_product_content::create([
-            'our_product_id' => $ourProduct->id, // Use the id from the our_product table
+            'our_product_id' => $ourProduct->id, // Gunakan id dari tabel our_product
             'language' => 'en',
             'title' => $validatedDataEn['title_en'],
             'description' => $validatedDataEn['description_en'],
-            'image' => $validatedDataEn['image'] ?? null, // Save image name if exists
+            'image' => $validatedDataEn['image'] ?? null, // Simpan nama gambar jika ada
         ]);
 
         // Simpan data baru ke dalam tabel our_product_content untuk bahasa Indonesia
         our_product_content::create([
-            'our_product_id' => $ourProduct->id, // Use the id from the our_product table
+            'our_product_id' => $ourProduct->id, // Gunakan id dari tabel our_product
             'language' => 'id',
             'title' => $validatedDataId['title_id'],
             'description' => $validatedDataId['description_id'],
-            'image' => $validatedDataId['image'] ?? null, // Save image name if exists
+            'image' => $validatedDataId['image'] ?? null, // Simpan nama gambar jika ada
         ]);
 
         return redirect()->route('ourProduct.index')->with('success', 'Our Product content created successfully.');
     }
-
-
 
 
 
@@ -106,6 +147,9 @@ class OurProductController extends Controller
         // Cari header content berdasarkan ID
         $ourProductContent = our_product_content::findOrFail($id);
 
+        // Inisialisasi ImageManager dengan driver yang diinginkan
+        $manager = new ImageManager(new Driver());
+
         // Jika ada gambar baru yang diupload
         if ($request->hasFile('image')) {
             // Hapus gambar lama jika ada
@@ -117,8 +161,26 @@ class OurProductController extends Controller
             }
 
             // Simpan gambar baru
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('assets/img/custom/storage/product'), $imageName);
+            $imageFile = $request->file('image');
+            $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
+            $imagePath = public_path('assets/img/custom/storage/product/' . $imageName);
+
+            // Baca gambar dan lakukan resize
+            $image = $manager->read($imageFile);
+            // Dapatkan ukuran asli gambar
+            $originalWidth = $image->width();
+            $originalHeight = $image->height();
+
+            // Hitung ukuran baru (60% dari ukuran asli)
+            $newWidth = intval($originalWidth * 0.5);
+            $newHeight = intval($originalHeight * 0.5);
+
+            // Resize gambar ke ukuran baru
+            $image->resize($newWidth, $newHeight, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })
+                ->save($imagePath);
 
             // Update data dengan gambar baru
             $ourProductContent->update([
