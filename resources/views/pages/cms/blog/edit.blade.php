@@ -107,8 +107,17 @@
 
 
 <script>
-    CKEDITOR.replace('description_en');
-    CKEDITOR.replace('description_id');
+    ClassicEditor
+        .create(document.querySelector('#description_en'))
+        .catch(error => {
+            console.error(error);
+        });
+
+    ClassicEditor
+        .create(document.querySelector('#description_id'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 
 

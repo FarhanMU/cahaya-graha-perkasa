@@ -94,12 +94,17 @@
 
 
 <script>
-    CKEDITOR.replace('description_en', {
-        removePlugins: 'notification',
-    });
-    CKEDITOR.replace('description_id', {
-        removePlugins: 'notification',
-    });
+    ClassicEditor
+        .create(document.querySelector('#description_en'))
+        .catch(error => {
+            console.error(error);
+        });
+
+    ClassicEditor
+        .create(document.querySelector('#description_id'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 
 
