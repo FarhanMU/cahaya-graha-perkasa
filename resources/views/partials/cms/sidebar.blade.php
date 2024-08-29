@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="/" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <img src="{{ asset('assets/img/custom/icon.webp') }}" alt="Logo" style="height: 2em; width: 1.5em">
             </span>
@@ -19,7 +19,7 @@
 
         <!-- Dashboards -->
         <li class="menu-item {{ $currentRoute == 'dashboard' ? 'active' : '' }} ">
-            <a href="/" class="menu-link">
+            <a href="/dashboard" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-smart-home"></i>
                 <div data-i18n="Dashboard">Dashboard </div>
             </a>
@@ -27,7 +27,7 @@
 
         <!-- Data Beranda -->
         <li
-            class="menu-item {{ request()->routeIs('pengemudi.*') || request()->routeIs('produk.*') || request()->routeIs('kendaraan.*') || request()->routeIs('voucher.*') ? 'open' : '' }}">
+            class="menu-item {{ request()->routeIs('header.*') || request()->routeIs('whyUs.*') || request()->routeIs('ourProduct.*') || request()->routeIs('contactUs.*') || request()->routeIs('socialMedia.*') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-home"></i>
                 <div data-i18n="Beranda">Beranda</div>
@@ -39,23 +39,23 @@
                     </a>
                 </li>
                 <li class="menu-item  {{ request()->routeIs('whyUs.*') ? 'active' : '' }} ">
-                    <a href="/whyUs" class="menu-link">
+                    <a href="/dashboard/why-us" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-archive"></i>
                         <div data-i18n="Why Us">Why Us</div>
                     </a>
                 </li>
                 <li class="menu-item  {{ request()->routeIs('ourProduct.*') ? 'active' : '' }} ">
-                    <a href="/dashboard/ourProduct/" class="menu-link">
+                    <a href="/dashboard/our-product/" class="menu-link">
                         <div data-i18n="Our Product">Our Product</div>
                     </a>
                 </li>
                 <li class="menu-item  {{ request()->routeIs('contactUs.*') ? 'active' : '' }} ">
-                    <a href="/contactUs/" class="menu-link">
+                    <a href="/dashboard/contact-us/" class="menu-link">
                         <div data-i18n="Contact Us">Contact Us</div>
                     </a>
                 </li>
                 <li class="menu-item  {{ request()->routeIs('socialMedia.*') ? 'active' : '' }} ">
-                    <a href="/dashboard/socialMedia" class="menu-link">
+                    <a href="/dashboard/social-media" class="menu-link">
                         <i class="menu-icon tf-icons ti ti-archive"></i>
                         <div data-i18n="Social Media">Social Media</div>
                     </a>
@@ -79,8 +79,8 @@
                 <div data-i18n="Card">Card</div>
             </a>
         </li>
-        <li class="menu-item  {{ request()->routeIs('email.*') ? 'active' : '' }} ">
-            <a href="/dashboard/email" class="menu-link">
+        <li class="menu-item  {{ request()->routeIs('sendEmail.*') ? 'active' : '' }} ">
+            <a href="/dashboard/send-email" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-mail"></i>
                 <div data-i18n="Email">Email</div>
             </a>

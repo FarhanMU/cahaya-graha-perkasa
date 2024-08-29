@@ -7,9 +7,25 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>{{ $currentRoute }}</title>
+    <!-- SEO Meta Tags -->
+    <title>{{ $currentRoute }}</title> <!-- Dynamic title based on the route -->
+    <meta name="description" content="{{ $metaDescription ?? 'Default description if not provided' }}" />
+    <meta name="keywords" content="{{ $metaKeywords ?? 'default, keywords' }}" />
+    <meta name="author" content="{{ $metaAuthor ?? 'Your Company Name' }}" />
+    <meta name="robots" content="index, follow" />
 
-    <meta name="description" content="" />
+    <!-- Open Graph Meta Tags (Untuk Social Media Sharing) -->
+    <meta property="og:title" content="{{ $metaOgTitle ?? $currentRoute }}" />
+    <meta property="og:description" content="{{ $metaOgDescription ?? $metaDescription }}" />
+    <meta property="og:image" content="{{ asset($metaOgImage ?? 'path/to/default-image.jpg') }}" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ $metaTwitterTitle ?? $currentRoute }}" />
+    <meta name="twitter:description" content="{{ $metaTwitterDescription ?? $metaDescription }}" />
+    <meta name="twitter:image" content="{{ asset($metaTwitterImage ?? 'path/to/default-image.jpg') }}" />
 
     @include('partials.main.styles') {{-- include all stylesheets --}}
 </head>

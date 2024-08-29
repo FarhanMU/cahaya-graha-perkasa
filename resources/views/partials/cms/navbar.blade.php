@@ -46,7 +46,7 @@
             <!-- / Style Switcher-->
 
             <!-- Notification -->
-            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+            {{-- <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
                     data-bs-auto-close="outside" aria-expanded="false">
                     <i class="ti ti-bell ti-md"></i>
@@ -267,7 +267,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <!--/ Notification -->
 
             <!-- User -->
@@ -278,7 +278,7 @@
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
+                    {{-- <li>
                         <a class="dropdown-item" href="pages-account-settings-account.html">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
@@ -302,10 +302,10 @@
                             <i class="ti ti-user-check me-2 ti-sm"></i>
                             <span class="align-middle">My Profile</span>
                         </a>
-                    </li>
-                    <li>
+                    </li> --}}
+                    {{-- <li>
                         <div class="dropdown-divider"></div>
-                    </li>
+                    </li> --}}
                     <li>
                         <form action="{{ route('logout') }}" method="POST" id="logout-form">
                             @csrf

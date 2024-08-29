@@ -1,10 +1,17 @@
 <?php
 
-use App\Http\Controllers\Main\DashboardController;
+use App\Http\Controllers\Dashboard\BlogController;
+use App\Http\Controllers\Dashboard\CardController;
+use App\Http\Controllers\Dashboard\ContactUsController;
+use App\Http\Controllers\Dashboard\HeaderController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\SocialMediaController;
 use App\Http\Controllers\Main\MainPageController;
 use App\Http\Controllers\Main\SmtpController;
-use App\Http\Controllers\Master\DriverController;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\Dashboard\WhyUsController;
+use App\Http\Controllers\Dashboard\OurProductController;
+use App\Http\Controllers\Dashboard\SendEmailController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,4 +39,76 @@ Route::post('/smtp-send', [SmtpController::class, 'sendEmail'])->name('smtp.send
 Route::middleware('auth')->group(function () {
     // Dashboard Controller
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/dashboard/header', HeaderController::class)->names([
+        'index' => 'header.index',
+        'create' => 'header.create',
+        'store' => 'header.store',
+        'show' => 'header.show',
+        'edit' => 'header.edit',
+        'update' => 'header.update',
+        'destroy' => 'header.destroy',
+    ]);
+    Route::resource('/dashboard/why-us', WhyUsController::class)->names([
+        'index' => 'whyUs.index',
+        'create' => 'whyUs.create',
+        'store' => 'whyUs.store',
+        'show' => 'whyUs.show',
+        'edit' => 'whyUs.edit',
+        'update' => 'whyUs.update',
+        'destroy' => 'whyUs.destroy',
+    ]);
+
+    Route::resource('/dashboard/our-product', OurProductController::class)->names([
+        'index' => 'ourProduct.index',
+        'create' => 'ourProduct.create',
+        'store' => 'ourProduct.store',
+        'show' => 'ourProduct.show',
+        'edit' => 'ourProduct.edit',
+        'update' => 'ourProduct.update',
+        'destroy' => 'ourProduct.destroy',
+    ]);
+
+    Route::resource('/dashboard/contact-us', ContactUsController::class)->names([
+        'index' => 'contactUs.index',
+        'create' => 'contactUs.create',
+        'store' => 'contactUs.store',
+        'show' => 'contactUs.show',
+        'edit' => 'contactUs.edit',
+        'update' => 'contactUs.update',
+        'destroy' => 'contactUs.destroy',
+    ]);
+
+    Route::resource('/dashboard/social-media', SocialMediaController::class)->names([
+        'index' => 'socialMedia.index',
+        'create' => 'socialMedia.create',
+        'store' => 'socialMedia.store',
+        'show' => 'socialMedia.show',
+        'edit' => 'socialMedia.edit',
+        'update' => 'socialMedia.update',
+        'destroy' => 'socialMedia.destroy',
+    ]);
+
+    Route::resource('/dashboard/blog', BlogController::class)->names([
+        'index' => 'blog.index',
+        'create' => 'blog.create',
+        'store' => 'blog.store',
+        'show' => 'blog.show',
+        'edit' => 'blog.edit',
+        'update' => 'blog.update',
+        'destroy' => 'blog.destroy',
+    ]);
+
+    Route::resource('/dashboard/card', CardController::class)->names([
+        'index' => 'card.index',
+        'create' => 'card.create',
+        'store' => 'card.store',
+        'show' => 'card.show',
+        'edit' => 'card.edit',
+        'update' => 'card.update',
+        'destroy' => 'card.destroy',
+    ]);
+
+    Route::get('/dashboard/send-email', [SendEmailController::class, 'index'])->name('sendEmail.index');
+
+
 });

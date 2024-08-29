@@ -1,6 +1,23 @@
 @extends('components.layouts.main.app')
 
 @section('content')
+
+
+@section('title', 'Blog | Cahaya Graha Perkasa')
+
+@php
+$metaDescription = 'Discover insightful articles on our blog. Stay updated with the latest trends, tips, and more.';
+$metaKeywords = 'blog, articles, insights, trends, tips, PT Cahaya Graha Perkasa';
+$metaAuthor = 'PT Cahaya Graha Perkasa';
+$metaOgTitle = 'Blog | PT Cahaya Graha Perkasa';
+$metaOgDescription = $metaDescription;
+$metaOgImage = asset('assets/img/custom/jumbotron-1.webp'); // Gambar untuk social media sharing
+$metaTwitterTitle = $metaOgTitle;
+$metaTwitterDescription = $metaDescription;
+$metaTwitterImage = $metaOgImage;
+@endphp
+
+
 <!-- Jumbotron Section -->
 <div class="jumbotron jumbotron-custom text-white" data-aos="fade-up">
     <div class="container-fluid custom-container">
@@ -33,10 +50,14 @@
                     <a href="{{ route('blog.detail', $content->slug) }}">
                         <div class="card h-100">
                             <img src="{{ asset('assets/img/custom/storage/blog/' . $content->image) }}"
-                                class="card-img-top" alt="{{ $content->title }}">
+                                class="card-img-top" alt="{{ $content->title }}"
+                                style="max-width: 100%; max-height: 250px; object-fit: cover;">
+
                             <div class="card-body">
                                 <h5 class="card-title fw-bold fs-3">{{ $content->title }}</h5>
-                                <p class="card-text">{{ $content->description }}</p>
+                                <p class="card-text">
+                                    {{ Str::limit(strip_tags($content->description), 300, '...') }}
+                                </p>
                             </div>
                         </div>
                     </a>

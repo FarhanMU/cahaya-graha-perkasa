@@ -26,7 +26,7 @@
                                     <h5 class="mb-1 text-nowrap">Total Email</h5>
                                 </div>
                                 <div class="chart-statistics">
-                                    <h4 class="card-title mb-1">0</h4>
+                                    <h4 class="card-title mb-1">{{ $send_email}}</h4>
                                 </div>
                             </div>
                             <div id="revenueGrowth"></div>
@@ -44,7 +44,7 @@
                                     <h5 class="mb-1 text-nowrap">Card Total</h5>
                                 </div>
                                 <div class="chart-statistics">
-                                    <h4 class="card-title mb-1">7</h4>
+                                    <h4 class="card-title mb-1">{{ $card}}</h4>
                                 </div>
                             </div>
                             <div id="revenueGrowth"></div>
@@ -62,7 +62,7 @@
                                     <h5 class="mb-1 text-nowrap">Blog Total</h5>
                                 </div>
                                 <div class="chart-statistics">
-                                    <h4 class="card-title mb-1">7</h4>
+                                    <h4 class="card-title mb-1">{{ $blog}}</h4>
                                 </div>
                             </div>
                             <div id="revenueGrowth"></div>
@@ -74,7 +74,7 @@
         </div>
         <!-- Content wrapper -->
 
-        <div class="row">
+        {{-- <div class="row">
             <!-- Browser States -->
             <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card h-100">
@@ -232,7 +232,7 @@
             </div>
             <!--/ User Visitor -->
 
-        </div>
+        </div> --}}
     </div>
     <!-- / Content -->
 

@@ -23,3 +23,9 @@
 
 <!-- Page JS -->
 <script src="{{ asset('assets/js/app-logistics-dashboard.js') }}"></script>
+
+<!-- Sweet Alert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- CK Editor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>

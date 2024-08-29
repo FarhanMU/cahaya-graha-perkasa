@@ -2,6 +2,22 @@
 
 @section('content')
 
+
+@section('title', $metaOgTitle ?? 'Cahaya Graha Perkasa')
+
+@php
+$metaDescription = 'Discover why we are the best choice. Explore our unique offerings and products tailored to meet your
+needs.';
+$metaKeywords = 'why us, our products, contact us, company name, services, products';
+$metaAuthor = 'PT Cahaya Graha Perkasa';
+$metaOgTitle = 'Why Choose Us | PT Cahaya Graha Perkasa';
+$metaOgDescription = $metaDescription;
+$metaOgImage = asset('assets/img/custom/jumbotron-1.webp'); // Image for social media sharing
+$metaTwitterTitle = $metaOgTitle;
+$metaTwitterDescription = $metaDescription;
+$metaTwitterImage = $metaOgImage;
+@endphp
+
 <style>
     .form-control,
     .form-control:hover,
@@ -65,7 +81,8 @@
                                 <div class="card h-100">
                                     <div class="card-body text-body d-flex flex-column justify-content-between h-100">
                                         <img src="{{ asset('assets/img/custom/storage/product') . '/'. $content->image  }}"
-                                            class="card-img-top" alt="Besi Aluminium">
+                                            class="card-img-top" alt="Besi Aluminium"
+                                            style="max-width: 100%; max-height: 250px; object-fit: cover;">
                                         <div class="card-body">
                                             <h5 class="card-title fw-bold fs-3">{{ $content->title }}</h5>
                                             <p class="card-text">{{ $content->description }}</p>
