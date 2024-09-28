@@ -113,21 +113,6 @@ body {
     background-color: var(--primary-color);
 }
 
-.carousel-item {
-    display: flex;
-    transition: transform 0.5s ease;
-}
-
-.carousel-item .card {
-    min-width: 33.333%; /* Each card takes up a third of the carousel */
-    margin-right: 15px; /* Space between cards */
-}
-
-/* Hide horizontal scrollbar */
-.carousel-inner {
-    overflow: hidden;
-}
-
 .swiper-reviews-carousel {
     position: relative;
 }

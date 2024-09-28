@@ -2,6 +2,8 @@
 <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
 
 
+
+
 <!-- Icons -->
 <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/fontawesome.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/tabler-icons.css') }}" />
@@ -18,6 +20,8 @@
 
 <!-- Vendor -->
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/@form-validation/form-validation.css') }}" />
+
+
 
 <!-- Page CSS -->
 <!-- Page -->
@@ -40,6 +44,8 @@
 
 <!-- LoadingOverlay CSS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/loadingoverlay/2.1.7/loadingoverlay.min.css" rel="stylesheet">
+
+
 
 
 <!-- Fonts -->
@@ -94,4 +100,5 @@
     }
 </style>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />

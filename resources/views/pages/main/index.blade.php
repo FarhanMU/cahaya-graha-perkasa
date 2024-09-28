@@ -18,8 +18,7 @@ $metaTwitterDescription = $metaDescription;
 $metaTwitterImage = $metaOgImage;
 @endphp
 
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 <style>
     .form-control,
@@ -53,6 +52,7 @@ $metaTwitterImage = $metaOgImage;
         z-index: 3;
     }
 </style>
+
 
 <!-- Jumbotron Section -->
 <div class="jumbotron jumbotron-custom text-white position-relative" data-aos="fade-up">
@@ -95,7 +95,7 @@ $metaTwitterImage = $metaOgImage;
 
 
 <!-- Why Us Section -->
-<div id="whyUs" class="container" style="margin-bottom: 10em" data-aos="fade-up">
+<div id="whyUs" class="container" style="margin-bottom: 10em; margin-top:10em" data-aos="fade-up">
     <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.why_us_title') }}</h2>
     @foreach($why_us as $key => $why)
     @foreach($why->contents as $content)
@@ -250,8 +250,7 @@ $metaTwitterImage = $metaOgImage;
 
 @push('scripts')
 
-<!-- Bootstrap JS (with Popper.js for carousel functionality) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="{{ asset('assets/js/front-page-landing.js') }}"></script>
 <script>
     AOS.init({
@@ -290,4 +289,5 @@ $metaTwitterImage = $metaOgImage;
         });
     });
 </script>
+
 @endpush
