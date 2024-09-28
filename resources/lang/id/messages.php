@@ -5,6 +5,7 @@ return [
     '' => 'Mengapa Kami',
     'visi_misi_title' => 'Visi & Misi',
     'product_excelence_title' => 'Keunggulan Product',
+    'our_client_title' => 'Our Client',
     'our_product_title' => 'Produk Kami',
     'contact_us_title' => 'Hubungi Kami',
     'name_label' => 'Nama',

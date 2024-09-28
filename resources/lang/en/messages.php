@@ -5,6 +5,7 @@ return [
     'why_us_title' => 'Why Us',
     'visi_misi_title' => 'Vision & mission',
     'product_excelence_title' => 'Product Excellence',
+    'our_client_title' => 'Klien Kami',
     'our_product_title' => 'Our Product',
     'contact_us_title' => 'Contact Us',
     'name_label' => 'Name',

@@ -129,50 +129,67 @@ $metaTwitterImage = $metaOgImage;
 
 
 <!-- Why Us Section -->
-<div id="whyUs" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
-    <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.why_us_title') }}</h2>
-    @foreach($why_us as $key => $why)
-    @foreach($why->contents as $content)
-    <div class="row align-items-center mb-4">
-        <div class="col-md-6 order-md-{{ $key % 2 == 0 ? '1' : '2' }}">
-            <h4 class="fw-bold text-dark fs-2">{{ $content->title }}</h4>
-            <p>{{ $content->description }}</p>
+<div style=" background-color: var(--secondary-color)" class="py-1">
+    <div id="whyUs" class="container" style="margin-bottom: 10em; margin-top:5em;" data-aos="fade-up">
+        <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.why_us_title') }}</h2>
+        @foreach($why_us as $key => $why)
+        @foreach($why->contents as $content)
+        <div class="row align-items-center mb-4">
+            <div class="col-md-6 order-md-{{ $key % 2 == 0 ? '1' : '2' }}">
+                <h4 class="fw-bold text-light fs-2">{{ $content->title }}</h4>
+                <p class="text-light">{{ $content->description }}</p>
+            </div>
+            <div class="col-md-6 order-md-{{ $key % 2 == 0 ? '2' : '1' }}">
+            </div>
         </div>
-        <div class="col-md-6 order-md-{{ $key % 2 == 0 ? '2' : '1' }}">
-        </div>
+        @endforeach
+        @endforeach
     </div>
-    @endforeach
-    @endforeach
+</div>
+
+<!-- Our Client Section -->
+<div id="ourClient" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
+    <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.our_client_title') }}</h2>
+    <marquee behavior="scroll" direction="left">
+        <img src="{{ asset('assets/img/custom/mitra/1.png') }}" alt="Mitra 1" style="height: 60px; margin: 0 20px;">
+        <img src="{{ asset('assets/img/custom/mitra/1.png') }}" alt="Mitra 2" style="height: 60px; margin: 0 20px;">
+        <img src="{{ asset('assets/img/custom/mitra/1.png') }}" alt="Mitra 3" style="height: 60px; margin: 0 20px;">
+        <img src="{{ asset('assets/img/custom/mitra/1.png') }}" alt="Mitra 4" style="height: 60px; margin: 0 20px;">
+    </marquee>
 </div>
 
 <!-- product excellence Section -->
-<div id="visiMisi" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
-    <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.product_excelence_title')
-        }}</h2>
-    <div class="row justify-content-center align-items-center text-center mb-4">
-        @php $counter = 1; @endphp
-        <!-- Inisialisasi counter manual -->
+<div style=" background-color: var(--secondary-color)" class="py-1">
+    <div id="visiMisi" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
+        <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{
+            __('messages.product_excelence_title')
+            }}</h2>
+        <div class="row justify-content-center align-items-center text-center mb-4">
+            @php $counter = 1; @endphp
+            <!-- Inisialisasi counter manual -->
 
-        @foreach($why_us as $key => $why)
-        @foreach($why->contents as $content )
-        <div class="col-md-4  my-4 p-2">
-            <div class="shadow-sm p-3">
-                <img src="{{ asset('assets/img/custom/product-excelence') . '/'.  $counter. '.png' }}"
-                    class="card-img-top" alt="Besi Aluminium" style="max-width: 25%; max-height: 250px;">
-                <h4 class="fw-bold text-dark fs-2 mt-3">{{ $content->title }}</h4>
-                <p>{{ $content->description }}</p>
+            @foreach($why_us as $key => $why)
+            @foreach($why->contents as $content )
+            <div class="col-md-4  my-4 p-2">
+                <div class="shadow-sm p-3">
+                    <img src="{{ asset('assets/img/custom/product-excelence') . '/'.  $counter. '.png' }}"
+                        class="card-img-top" alt="Besi Aluminium" style="max-width: 25%; max-height: 250px;">
+                    <h4 class="fw-bold text-light fs-2 mt-3">{{ $content->title }}</h4>
+                    <p class="text-light">{{ $content->description }}</p>
+                </div>
             </div>
+            @php $counter++; @endphp
+            <!-- Tambahkan counter setelah setiap iterasi -->
+            @endforeach
+            @endforeach
         </div>
-        @php $counter++; @endphp
-        <!-- Tambahkan counter setelah setiap iterasi -->
-        @endforeach
-        @endforeach
-    </div>
 
+    </div>
 </div>
 
+
 <!-- Our Product Section -->
-<div id="ourProduct" style="margin-bottom: 7em" data-aos="fade-up">
+<div id="ourProduct" style="margin-bottom: 7em" data-aos="fade-up" class="mt-5">
     <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">Our Product</h2>
     <section id="landingReviews" class=" bg-body landing-reviews ">
         <!-- What people say slider: Start -->
