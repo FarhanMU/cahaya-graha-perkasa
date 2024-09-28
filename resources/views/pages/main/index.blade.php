@@ -146,21 +146,29 @@ $metaTwitterImage = $metaOgImage;
 </div>
 
 <!-- product excellence Section -->
-<div id="productExcellence" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
+<div id="visiMisi" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
     <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.product_excelence_title')
         }}</h2>
-    @foreach($why_us as $key => $why)
-    @foreach($why->contents as $content)
-    <div class="row align-items-center mb-4">
-        <div class="col-md-6 order-md-{{ $key % 2 == 0 ? '1' : '2' }}">
-            <h4 class="fw-bold text-dark fs-2">{{ $content->title }}</h4>
-            <p>{{ $content->description }}</p>
+    <div class="row justify-content-center align-items-center text-center mb-4">
+        @php $counter = 1; @endphp
+        <!-- Inisialisasi counter manual -->
+
+        @foreach($why_us as $key => $why)
+        @foreach($why->contents as $content )
+        <div class="col-md-4  my-4 p-2">
+            <div class="shadow-sm p-3">
+                <img src="{{ asset('assets/img/custom/product-excelence') . '/'.  $counter. '.png' }}"
+                    class="card-img-top" alt="Besi Aluminium" style="max-width: 25%; max-height: 250px;">
+                <h4 class="fw-bold text-dark fs-2 mt-3">{{ $content->title }}</h4>
+                <p>{{ $content->description }}</p>
+            </div>
         </div>
-        <div class="col-md-6 order-md-{{ $key % 2 == 0 ? '2' : '1' }}">
-        </div>
+        @php $counter++; @endphp
+        <!-- Tambahkan counter setelah setiap iterasi -->
+        @endforeach
+        @endforeach
     </div>
-    @endforeach
-    @endforeach
+
 </div>
 
 <!-- Our Product Section -->
