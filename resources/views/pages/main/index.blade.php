@@ -18,33 +18,81 @@ $metaTwitterDescription = $metaDescription;
 $metaTwitterImage = $metaOgImage;
 @endphp
 
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
     .form-control,
     .form-control:hover,
     .form-control:focus {
         border: var(--bs-border-width) solid #dddddd !important;
     }
+
+    .jumbotron-custom {
+        position: relative;
+        height: 100vh;
+        background-color: #0d213f;
+    }
+
+    .carousel-inner img {
+        height: 100vh;
+        object-fit: cover;
+        /* Ensures the image covers the entire section */
+    }
+
+    .container.custom-container {
+        z-index: 2;
+    }
+
+    .jumbotron-custom .carousel-inner {
+        z-index: 1;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        z-index: 3;
+    }
 </style>
 
 <!-- Jumbotron Section -->
-<div class="jumbotron jumbotron-custom text-white" data-aos="fade-up">
-    <div class="container-fluid custom-container">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                @foreach($headers as $header)
-                @foreach($header->contents->where('language', $language) as $content)
-                <h1 class="display-4 fw-bold text-white">{{ $content->title }}</h1>
-                <p class="lead text-white">{{ $content->description }}</p>
-                @endforeach
-                @endforeach
+<div class="jumbotron jumbotron-custom text-white position-relative" data-aos="fade-up">
+    <!-- Slider as Background -->
+    <div id="slider" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/assets/img/custom/header/1.jpg" class="d-block w-100" alt="Slide 1">
             </div>
-            <div class="col-md-6 text-center">
-                <img src="{{ asset('assets/img/custom/jumbotron-1.webp') }}" alt="Project Illustration"
-                    class="img-fluid">
+            <div class="carousel-item">
+                <img src="/assets/img/custom/header/2.jpg" class="d-block w-100" alt="Slide 2">
             </div>
+            <div class="carousel-item">
+                <img src="/assets/img/custom/header/3.jpg" class="d-block w-100" alt="Slide 3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#slider" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Centered Text Section -->
+    <div class="container custom-container position-absolute top-50 start-50 translate-middle">
+        <div class="text-center">
+            <h1 class="display-4 fw-bold text-white">One Stop Solution For Your Project</h1>
+            <p class="lead text-white">Welcome to Cahaya Graha Perkasa, the premier choice for all your steel
+                construction needs. Whether you are embarking on a commercial, industrial, or residential project, we
+                provide comprehensive solutions that ensure durability, efficiency, and excellence.</p>
         </div>
     </div>
 </div>
+
+
+
+
 
 <!-- Why Us Section -->
 <div id="whyUs" class="container" style="margin-bottom: 10em" data-aos="fade-up">
@@ -79,15 +127,18 @@ $metaTwitterImage = $metaOgImage;
                             @foreach($ourProduct->contents as $content)
                             <div class="swiper-slide">
                                 <div class="card h-100">
-                                    <div class="card-body text-body d-flex flex-column justify-content-between h-100">
-                                        <img src="{{ asset('assets/img/custom/storage/product') . '/'. $content->image  }}"
-                                            class="card-img-top" alt="Besi Aluminium"
-                                            style="max-width: 100%; max-height: 250px; object-fit: cover;">
-                                        <div class="card-body">
-                                            <h5 class="card-title fw-bold fs-3">{{ $content->title }}</h5>
-                                            <p class="card-text">{{ $content->description }}</p>
+                                    <a href="/assets/img/custom/file/catalogue_cgp.pdf" target="_blank">
+                                        <div
+                                            class="card-body text-body d-flex flex-column justify-content-between h-100">
+                                            <img src="{{ asset('assets/img/custom/storage/product') . '/'. $content->image  }}"
+                                                class="card-img-top" alt="Besi Aluminium"
+                                                style="max-width: 100%; max-height: 250px; object-fit: cover;">
+                                            <div class="card-body">
+                                                <h5 class="card-title fw-bold fs-3">{{ $content->title }}</h5>
+                                                <p class="card-text">{{ $content->description }}</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                             @endforeach
@@ -198,6 +249,9 @@ $metaTwitterImage = $metaOgImage;
 @endsection
 
 @push('scripts')
+
+<!-- Bootstrap JS (with Popper.js for carousel functionality) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('assets/js/front-page-landing.js') }}"></script>
 <script>
     AOS.init({
