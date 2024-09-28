@@ -2,9 +2,9 @@
 
 return [
     'welcome_message' => 'Selamat datang di Cahaya Graha Perkasa, pilihan utama untuk semua kebutuhan konstruksi baja Anda.',
-    'why_us_title' => 'Mengapa Kami',
+    '' => 'Mengapa Kami',
     'visi_misi_title' => 'Visi & Misi',
-    'product_excelence_title' => 'Product Excellence',
+    'product_excelence_title' => 'Keunggulan Product',
     'our_product_title' => 'Produk Kami',
     'contact_us_title' => 'Hubungi Kami',
     'name_label' => 'Nama',
