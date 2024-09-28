@@ -39,13 +39,18 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ __('messages.select_language') }}
+                            <img src="{{ __('messages.select_language') }}" alt="">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="setLanguage('id')">{{
-                                    __('messages.indonesia') }}</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="setLanguage('en')">{{
+                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="setLanguage('id')"><img
+                                        src="/assets/img/custom/header/flag_indonesian.svg" alt="" height="15px">
+                                    {{
+                                    __('messages.indonesia') }}
+                                </a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="setLanguage('en')"><img
+                                        src="/assets/img/custom/header/england_flag.svg" alt="" height="15px"> {{
                                     __('messages.english') }}</a></li>
+
                         </ul>
                     </li>
                 </ul>

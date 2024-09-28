@@ -16,7 +16,7 @@ return [
     'our_product' => 'Produk Kami',
     'contact' => 'Kontak',
     'blog' => 'Blog',
-    'select_language' => 'Pilih Bahasa',
+    'select_language' => '/assets/img/custom/header/flag_indonesian.svg',
     'indonesia' => 'Indonesia',
     'english' => 'English',
 ];
