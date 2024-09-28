@@ -44,11 +44,11 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="setLanguage('id')"><img
                                         src="/assets/img/custom/header/flag_indonesian.svg" alt="" height="15px">
-                                    {{
+                                    &nbsp;{{
                                     __('messages.indonesia') }}
                                 </a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="setLanguage('en')"><img
-                                        src="/assets/img/custom/header/england_flag.svg" alt="" height="15px"> {{
+                                        src="/assets/img/custom/header/england_flag.svg" alt="" height="15px"> &nbsp;{{
                                     __('messages.english') }}</a></li>
 
                         </ul>

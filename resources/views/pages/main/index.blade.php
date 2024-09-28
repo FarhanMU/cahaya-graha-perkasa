@@ -108,12 +108,47 @@ $metaTwitterImage = $metaOgImage;
 </div>
 
 
+<!-- Visi Misi Section -->
+<div id="visiMisi" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
+    <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.visi_misi_title') }}</h2>
+    <div class="row justify-content-center align-items-center text-center mb-4">
+        @foreach($why_us as $key => $why)
+        @foreach($why->contents as $content)
+        <div class="col-md-4  my-4 p-2">
+            <div class="shadow-sm p-3">
+                <h4 class="fw-bold text-dark fs-2">{{ $content->title }}</h4>
+                <p>{{ $content->description }}</p>
+            </div>
+        </div>
+        @endforeach
+        @endforeach
+    </div>
+
+</div>
 
 
 
 <!-- Why Us Section -->
 <div id="whyUs" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
     <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.why_us_title') }}</h2>
+    @foreach($why_us as $key => $why)
+    @foreach($why->contents as $content)
+    <div class="row align-items-center mb-4">
+        <div class="col-md-6 order-md-{{ $key % 2 == 0 ? '1' : '2' }}">
+            <h4 class="fw-bold text-dark fs-2">{{ $content->title }}</h4>
+            <p>{{ $content->description }}</p>
+        </div>
+        <div class="col-md-6 order-md-{{ $key % 2 == 0 ? '2' : '1' }}">
+        </div>
+    </div>
+    @endforeach
+    @endforeach
+</div>
+
+<!-- product excellence Section -->
+<div id="productExcellence" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
+    <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.product_excelence_title')
+        }}</h2>
     @foreach($why_us as $key => $why)
     @foreach($why->contents as $content)
     <div class="row align-items-center mb-4">
