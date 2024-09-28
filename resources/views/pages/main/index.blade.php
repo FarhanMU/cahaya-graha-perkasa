@@ -51,6 +51,17 @@ $metaTwitterImage = $metaOgImage;
     .carousel-control-next {
         z-index: 3;
     }
+
+    .overlay-dark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Adjust the opacity for the desired effect */
+        z-index: 1;
+    }
 </style>
 
 
@@ -61,12 +72,18 @@ $metaTwitterImage = $metaOgImage;
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="/assets/img/custom/header/1.jpg" class="d-block w-100" alt="Slide 1">
+                <!-- Dark overlay -->
+                <div class="overlay-dark"></div>
             </div>
             <div class="carousel-item">
                 <img src="/assets/img/custom/header/2.jpg" class="d-block w-100" alt="Slide 2">
+                <!-- Dark overlay -->
+                <div class="overlay-dark"></div>
             </div>
             <div class="carousel-item">
                 <img src="/assets/img/custom/header/3.jpg" class="d-block w-100" alt="Slide 3">
+                <!-- Dark overlay -->
+                <div class="overlay-dark"></div>
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
@@ -95,7 +112,7 @@ $metaTwitterImage = $metaOgImage;
 
 
 <!-- Why Us Section -->
-<div id="whyUs" class="container" style="margin-bottom: 10em; margin-top:10em" data-aos="fade-up">
+<div id="whyUs" class="container" style="margin-bottom: 10em; margin-top:5em" data-aos="fade-up">
     <h2 class="text-center fw-bold text-primary mb-5 position-relative fs-1">{{ __('messages.why_us_title') }}</h2>
     @foreach($why_us as $key => $why)
     @foreach($why->contents as $content)
